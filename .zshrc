@@ -10,7 +10,7 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # Add other source files that can be ignored
-source $HOME/.turbo.zsh
+source .custom.zsh
 
 #Bind
 bindkey '^[[A' history-substring-search-up
