@@ -1,11 +1,14 @@
 # Detect the platform (similar to $OSTYPE)
 OS="`uname`"
 case $OS in
-  'Linux')   echo "Linux detected ..." 
-	  sudo apt-get install -y zsh
-	  sudo apt-get install -y mosh;;
-  'Darwin')  echo "MacOS detected ..."
-	    brew install mosh ;;
+  'Linux')   
+      echo "Linux detected ..." 
+      sudo apt-get install -y zsh
+      sudo apt-get install -y mosh;;
+  'Darwin')  
+       echo "MacOS detected ..."
+       brew install mosh
+       brew install coreutils ;;
   *) echo "OS not detected ... " ;;
 
 esac
@@ -19,6 +22,8 @@ curl -sS https://starship.rs/install.sh | sh
 REALPATH=`realpath $0`
 DIR=`dirname $REALPATH`
 mkdir -p ~/.config && ln -sf $DIR/starship.toml ~/.config/starship.toml
+touch $DIR/.custom.zsh
+
 ln -sf $DIR/.tmux.conf $HOME/.tmux.conf
 
 mkdir -p $HOME/libs
