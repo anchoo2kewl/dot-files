@@ -2,13 +2,28 @@
 OS="`uname`"
 case $OS in
   'Linux')   
-      echo "Linux detected ..." 
-      sudo apt-get install -y zsh
-      sudo apt-get install -y mosh;;
+       echo "Linux detected ..." 
+       sudo apt-get install -y zsh
+       sudo apt-get install -y mosh
+       sudo apt-get install -y exa
+       sudo apt install -y bat
+       sudo apt install -y fzf
+       sudo apt install -y ripgrep
+       sudo apt install -y zoxide
+       sudo apt-get install -y mc
+       curl -L https://github.com/gokcehan/lf/releases/download/r13/lf-linux-amd64.tar.gz | tar xzC ~/.local/bin ;;
   'Darwin')  
-       echo "MacOS detected ..."
-       brew install mosh
-       brew install coreutils ;;
+        echo "MacOS detected ..."
+        brew install mosh
+        brew instal tmux
+        brew install coreutils
+        brew instal exa
+        brew install bat
+        brew install ripgrep
+        brew install fzf
+        brew install zoxide
+        brew install midnight-commander
+        brew install lf ;;
   *) echo "OS not detected ... " ;;
 
 esac
@@ -35,3 +50,4 @@ cd $HOME/libs
 [ ! -d 'zsh-history-substring-search' ] && git clone https://github.com/zsh-users/zsh-history-substring-search.git
 
 ln -sf $DIR/.zshrc $HOME/.zshrc
+ln -sf $DIR/.aliasrc $HOME/.config/.aliasrc
