@@ -1,4 +1,5 @@
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 
 #History setup
 HISTFILE=$HOME/.zsh_history

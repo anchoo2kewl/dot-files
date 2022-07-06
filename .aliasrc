@@ -44,7 +44,16 @@ alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 alias -g P="2>&1| pygmentize -l pytb"
 
-alias cat='bat'
+OS="`uname`"
+case $OS in
+  'Linux')
+       alias cat='batcat' ;;
+  'Darwin')
+        alias cat='bat' ;;
+  *) ;;
+esac
+
+alias cd='z'
 
 alias dud='du -d 1 -h'
 alias duf='du -sh *'
