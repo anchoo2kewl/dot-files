@@ -38,8 +38,10 @@ REALPATH=`realpath $0`
 DIR=`dirname $REALPATH`
 mkdir -p ~/.config && ln -sf $DIR/starship.toml ~/.config/starship.toml
 touch $DIR/.custom.zsh
+[ -f '.custom.zsh' ] && ln -sf $DIR/.custom.zsh $HOME/.custom.zsh
 
 ln -sf $DIR/.tmux.conf $HOME/.tmux.conf
+
 
 mkdir -p $HOME/libs
 

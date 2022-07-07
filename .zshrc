@@ -79,7 +79,7 @@ setopt always_to_end # move cursor to end if word had one match
 [ -f "$HOME/libs/zsh-history-substring-search/zsh-history-substring-search.zsh" ] && source $HOME/libs/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # Add other source files that can be ignored
-[ -f ".custom.zsh" ] && source .custom.zsh
+[ -f ".custom.zsh" ] && source "$HOME/.custom.zsh"
 
 #Bind
 bindkey '^[[A' history-substring-search-up
