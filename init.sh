@@ -1,17 +1,43 @@
 # Detect the platform (similar to $OSTYPE)
 OS="`uname`"
 case $OS in
-  'Linux')   
-       echo "Linux detected ..." 
-       sudo apt-get install -y zsh
-       sudo apt-get install -y mosh
-       sudo apt-get install -y exa
-       sudo apt install -y bat
-       sudo apt install -y fzf
-       sudo apt install -y ripgrep
-       sudo apt install -y zoxide
-       sudo apt-get install -y mc
-       curl -L https://github.com/gokcehan/lf/releases/download/r13/lf-linux-amd64.tar.gz | tar xzC ~/.local/bin ;;
+  'Linux')
+       echo "Linux detected. Probing OS further ..."
+       LINUX_OS=`awk -F= '/^NAME/{print $2}' /etc/os-release  | cut -d '"' -f2`
+       echo $LINUX_OS
+       case $LINUX_OS in
+           'Ubuntu' )	
+               echo "Ubuntu detected ..." 
+               sudo apt-get install -y zsh
+               sudo apt-get install -y mosh
+               sudo apt-get install -y exa
+               sudo apt install -y bat
+               sudo apt install -y fzf
+               sudo apt install -y ripgrep
+               sudo apt install -y zoxide
+               sudo apt-get install -y mc
+               curl -L https://github.com/gokcehan/lf/releases/download/r13/lf-linux-amd64.tar.gz | tar xzC ~/.local/bin ;;
+            'CentOS Linux')
+	       echo "Centos detected ..."
+	       sudo yum install -y zsh
+	       sudo dnf config-manager --set-enabled powertools
+	       sudo dnf install -y epel-release
+	       sudo yum -y install mosh
+	       sudo yum install -y unzip wget
+	       wget -O https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip /tmp
+	       unzip /tmp/exa-linux-x86_64-0.8.0.zip
+	       sudo mv /tmp/exa-linux-x86_64 /usr/local/bin/exa
+	       wget -O -c http://repo.openfusion.net/centos7-x86_64/bat-0.7.0-1.of.el7.x86_64.rpm /tmp
+	       sudo yum install -y tmp/bat-0.7.0-1.of.el7.x86_64.rpm
+               wget -O -c http://rpmfind.net/linux/fedora/linux/development/rawhide/Everything/x86_64/os/Packages/f/fzf-0.30.0-3.fc37.x86_64.rpm /tmp
+               sudo yum install -y /tmp/fzf-0.30.0-3.fc37.x86_64.rpm
+               wget -O -c https://github.com/jc21-rpm/ripgrep/releases/download/v13.0.0/ripgrep-13.0.0-1.el8.x86_64.rpm /tmp
+	       sudo yum install -y /tmp/ripgrep-13.0.0-1.el8.x86_64.rpm
+               sudo dnf copr enable -y atim/zoxide
+               sudo dnf install -y zoxide
+	       sudo dnf install -y mc
+	       sudo yum install -y util-linux-user ;;
+       esac ;;
   'Darwin')  
         echo "MacOS detected ..."
         brew install mosh
@@ -24,13 +50,12 @@ case $OS in
         brew install zoxide
         brew install midnight-commander
         brew install lf ;;
-  *) echo "OS not detected ... " ;;
+  *) echo "OS not detected ... " 
+     exit 1  ;;
 
 esac
 
-if [ -n "$ZSH_VERSION" ]; then
-	chsh -s /usr/bin/zsh
-fi
+chsh -s /usr/bin/zsh
 
 curl -sS https://starship.rs/install.sh | sh
 
