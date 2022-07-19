@@ -1,6 +1,8 @@
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
+neofetch
+
 #History setup
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000

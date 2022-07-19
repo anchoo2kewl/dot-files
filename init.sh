@@ -16,7 +16,8 @@ case $OS in
                sudo apt install -y ripgrep
                sudo apt install -y zoxide
                sudo apt-get install -y mc
-               curl -L https://github.com/gokcehan/lf/releases/download/r13/lf-linux-amd64.tar.gz | tar xzC ~/.local/bin ;;
+	       sudo apt-get install -y neofetch
+               sudo curl -L https://github.com/gokcehan/lf/releases/download/r13/lf-linux-amd64.tar.gz | tar xzC /usr/bin ;;
             'CentOS Linux')
 	       echo "Centos detected ..."
 	       sudo yum install -y zsh
@@ -24,6 +25,7 @@ case $OS in
 	       sudo dnf install -y epel-release
 	       sudo yum -y install mosh
 	       sudo yum install -y unzip wget
+	       sudo dnf install -y neofetch
 	       wget -O https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip /tmp
 	       unzip /tmp/exa-linux-x86_64-0.8.0.zip
 	       sudo mv /tmp/exa-linux-x86_64 /usr/local/bin/exa
