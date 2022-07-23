@@ -4,9 +4,10 @@ eval "$(zoxide init zsh)"
 neofetch
 
 #History setup
-HISTFILE=$HOME/.zsh_history
-HISTSIZE=100000
-SAVEHIST=$HISTSIZ
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=1000
+setopt SHARE_HISTORY
 
 # Basic auto/tab complete:
 autoload -U compinit

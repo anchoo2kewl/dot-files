@@ -53,8 +53,6 @@ case $OS in
   *) ;;
 esac
 
-alias cd='z'
-
 alias dud='du -d 1 -h'
 alias duf='du -sh *'
 alias fd='find . -type d -name'
