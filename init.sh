@@ -6,7 +6,19 @@ case $OS in
        LINUX_OS=`awk -F= '/^NAME/{print $2}' /etc/os-release  | cut -d '"' -f2`
        echo $LINUX_OS
        case $LINUX_OS in
-           'Ubuntu' )	
+	   'Arch Linux' )
+	       echo "Arch detected ..."
+	       sudo pacman -S --noconfirm zsh
+               sudo pacman -S --noconfirm mosh
+	       sudo pacman -S --noconfirm exa
+	       sudo pacman -S --noconfirm bat
+	       sudo pacman -S --noconfirm fzf
+	       sudo pacman -S --noconfirm ripgrep
+	       sudo pacman -S --noconfirm zoxide
+	       sudo pacman -S --noconfirm mc
+	       sudo pacman -S --noconfirm neofetch
+	       sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | sudo tar xzC /usr/bin ;;
+           'Ubuntu' )
                echo "Ubuntu detected ..." 
                sudo apt-get install -y zsh
                sudo apt-get install -y mosh
@@ -17,7 +29,7 @@ case $OS in
                sudo apt install -y zoxide
                sudo apt-get install -y mc
 	       sudo apt-get install -y neofetch
-               sudo curl -L https://github.com/gokcehan/lf/releases/download/r13/lf-linux-amd64.tar.gz | tar xzC /usr/bin ;;
+               sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | tar xzC /usr/bin ;;
             'CentOS Linux')
 	       echo "Centos detected ..."
 	       sudo yum install -y zsh
