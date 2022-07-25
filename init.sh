@@ -8,16 +8,16 @@ case $OS in
        case $LINUX_OS in
 	   'Arch Linux' )
 	       echo "Arch detected ..."
-	       sudo pacman -S --noconfirm zsh
-               sudo pacman -S --noconfirm mosh
-	       sudo pacman -S --noconfirm exa
-	       sudo pacman -S --noconfirm bat
-	       sudo pacman -S --noconfirm fzf
-	       sudo pacman -S --noconfirm ripgrep
-	       sudo pacman -S --noconfirm zoxide
-	       sudo pacman -S --noconfirm mc
-	       sudo pacman -S --noconfirm neofetch
-	       sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | sudo tar xzC /usr/bin ;;
+	       doas -- pacman -S --noconfirm zsh
+           doas -- pacman -S --noconfirm mosh
+	       doas -- pacman -S --noconfirm exa
+	       doas -- pacman -S --noconfirm bat
+	       doas -- pacman -S --noconfirm fzf
+	       doas -- pacman -S --noconfirm ripgrep
+	       doas -- pacman -S --noconfirm zoxide
+	       doas -- pacman -S --noconfirm mc
+	       doas -- pacman -S --noconfirm neofetch
+	       doas -- curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | doas tar xzC /usr/bin ;;
            'Ubuntu' )
                echo "Ubuntu detected ..." 
                sudo apt-get install -y zsh
@@ -54,6 +54,7 @@ case $OS in
        esac ;;
   'Darwin')  
         echo "MacOS detected ..."
+        brew install neofetch
         brew install mosh
         brew instal tmux
         brew install coreutils
