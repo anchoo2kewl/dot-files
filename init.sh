@@ -9,7 +9,7 @@ case $OS in
 	   'Arch Linux' )
 	       echo "Arch detected ..."
 	       doas -- pacman -S --noconfirm zsh
-           doas -- pacman -S --noconfirm mosh
+               doas -- pacman -S --noconfirm mosh
 	       doas -- pacman -S --noconfirm exa
 	       doas -- pacman -S --noconfirm bat
 	       doas -- pacman -S --noconfirm fzf
@@ -29,7 +29,7 @@ case $OS in
                sudo apt install -y zoxide
                sudo apt-get install -y mc
 	       sudo apt-get install -y neofetch
-               sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | tar xzC /usr/bin ;;
+               sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | sudo ar xzC /usr/bin ;;
             'CentOS Linux')
 	       echo "Centos detected ..."
 	       sudo yum install -y zsh
