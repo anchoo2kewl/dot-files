@@ -29,7 +29,7 @@ case $OS in
                sudo apt install -y zoxide
                sudo apt-get install -y mc
 	       sudo apt-get install -y neofetch
-               sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | tar xzC /usr/bin ;;
+               sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | sudo ar xzC /usr/bin ;;
             'CentOS Linux')
 	       echo "Centos detected ..."
 	       sudo yum install -y zsh
