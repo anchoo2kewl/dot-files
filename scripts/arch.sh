@@ -3,6 +3,7 @@
 if [ -z "$1" ]
   then
     echo "No argument supplied. Please provide the username"
+    exit 0
 fi
 
 doas -- pacman -S --noconfirm base-devel
@@ -49,3 +50,17 @@ EOT
 mkdir ~/projects
 cd ~/projects
 git clone https://gitlab.com/anchoo2kewl/wallpapers
+
+RESOLUTION=2560x1440
+if [ -z "$2" ]
+  then
+    echo "No resolution argument supplied. Using $RESOLUTION"
+  else
+  	RESOLUTION=$2
+  	echo "Resolution argument supplied. Using $RESOLUTION"
+fi
+
+cat <<EOT >> ~/.custom.zsh
+[[ \$(fgconsole 2>/dev/null) == 1 ]] && exec startx -- vt1
+xrandr -s $RESOLUTION
+EOT
