@@ -46,8 +46,14 @@ alias -g P="2>&1| pygmentize -l pytb"
 
 OS="`uname`"
 case $OS in
-  'Linux')
-       alias cat='batcat' ;;
+  'LINUX')
+    LINUX_OS=`awk -F= '/^NAME/{print $2}' /etc/os-release | cut -d '"' -f2`
+    case $LINUX_OS in
+      'Arch Linux')
+         alias cat='bat' ;;
+      *)
+         alias cat='batcat' ;;
+  esac ;;
   'Darwin')
         alias cat='bat' ;;
   *) ;;
@@ -70,4 +76,3 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias vim='vim'
 alias vi='vim'
-

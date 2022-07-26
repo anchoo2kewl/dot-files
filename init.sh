@@ -9,7 +9,7 @@ case $OS in
 	   'Arch Linux' )
 	       echo "Arch detected ..."
 	       doas -- pacman -S --noconfirm zsh
-           doas -- pacman -S --noconfirm mosh
+               doas -- pacman -S --noconfirm mosh
 	       doas -- pacman -S --noconfirm exa
 	       doas -- pacman -S --noconfirm bat
 	       doas -- pacman -S --noconfirm fzf
