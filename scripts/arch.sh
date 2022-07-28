@@ -6,6 +6,8 @@ if [ -z "$1" ]
     exit 0
 fi
 
+doas timedatectl set-timezone America/Toronto
+
 doas -- pacman -S --noconfirm base-devel
 
 doas su
@@ -65,42 +67,36 @@ cat <<EOT >> ~/.custom.zsh
 xrandr -s $RESOLUTION
 EOT
 
-yay -S google-chrome
+yay -S --noconfirm google-chrome
 
-doas -- pacman -S docker
+doas -- pacman -S --noconfirm docker
 
 doas systemctl start docker.service
 doas systemctl enable docker.service
 sudo usermod -aG docker $1
+yay -S --noconfirm docker-compose
+yay -S --noconfirm expect
 
 git clone https://aur.archlinux.org/snapd.git
 cd snapd
 makepkg -si
 sudo systemctl enable --now snapd.socket
 sudo ln -s /var/lib/snapd/snap /snap
-sudo snap install microk8s --classic
-sudo usermod --append --groups microk8s $1
-microk8s start
-sudo snap enable microk8s
-microk8s kubectl get nodes
-microk8s.kubectl run httpd --image httpd
-microk8s kubectl get services
-microk8s.enable registry
-microk8s.config
-microk8s kubectl delete pod httpd
-microk8s kubectl get pods
-microk8s kubectl -n kube-system get secret
-token=$(microk8s kubectl -n kube-system get secret | grep default-token | cut -d " " -f1)
-microk8s.enable dashboard dns
-microk8s.enable dashboard dnsmicrok8s kubectl create token -n kube-system default --duration=8544h
-microk8s kubectl -n kube-system describe secret $token
-microk8s.enable storage
-microk8s.enable prometheus
-# sudo firewall-cmd --zone=public --add-port 9090/tcp --permanent
-# sudo firewall-cmd --zone=public --add-port 3000/tcp --permanent
-microk8s enable helm
-microk8s enable ingress
-yay -S helm
 
-# microk8s kubectl port-forward -n monitoring service/grafana --address 0.0.0.0 3000:3000
-# microk8s kubectl port-forward -n monitoring service/grafana --address 0.0.0.0 9090:9090
+yay -S --noconfirm gnupg
+doas -- pacman -S --noconfirm jdk8-openjdk
+yay -S --noconfirm maven
+
+cat <<EOT >> ~/.custom.zsh
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/
+export M2_HOME=/opt/maven/
+export PATH=$PATH:$JAVA_HOME/bin:$M2_HOME/bin
+EOT
+
+yay -S --noconfirm lsof
+
+yay -S --noconfirm intellij-idea-community-edition
+
+yay -S --noconfirm pycharm-community-edition
+
+yay -S --noconfirm visual-studio-code-bin

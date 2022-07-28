@@ -45,3 +45,19 @@ brew install --cask obs
 
 # Install telnet
 brew install telnet
+
+# Install RDP
+brew install --cask microsoft-remote-desktop
+
+# Install insomnia
+brew install --cask insomnia
+
+# Install Docker Desktop
+brew install homebrew/cask/docker
+brew install zsh-completions
+brew install docker-completion
+brew install docker-compose-completion
+brew install docker-machine-completion
+
+# Install Notion
+brew install --cask notion
