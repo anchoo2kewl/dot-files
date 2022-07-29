@@ -1,3 +1,10 @@
+isM1=`sysctl -n sysctl.proc_translated`
+re='^[0-9]+$'
+
+if [[ $isM1 =~ $re ]] ; then 
+    export PATH=$PATH:/opt/homebrew/bin;
+fi
+
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
