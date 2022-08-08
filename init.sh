@@ -6,7 +6,7 @@ case $OS in
        LINUX_OS=`awk -F= '/^NAME/{print $2}' /etc/os-release  | cut -d '"' -f2`
        echo $LINUX_OS
        case $LINUX_OS in
-	   'Arch Linux' )
+	   'Arch Linux'|'Arch Linux ARM' )
 	       echo "Arch detected ..."
 	       doas -- pacman -S --noconfirm zsh
                doas -- pacman -S --noconfirm mosh

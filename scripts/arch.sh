@@ -10,10 +10,9 @@ doas timedatectl set-timezone America/Toronto
 
 doas -- pacman -S --noconfirm base-devel
 
-doas su
-echo "$1 ALL=(ALL) NOPASSWD:ALL" >>  /etc/sudoers
+SUDOERS_FILE=/etc/sudoers
+doas grep -q "$1" $SUDOERS_FILE && echo "User ($1) already in sudoers file" || doas echo "$1 ALL=(ALL) NOPASSWD:ALL" | doas tee -a /etc/sudoers > /dev/null
 pacman -Sy --noconfirm  archlinux-keyring && pacman -Su
-exit
 doas -- pacman -S --noconfirm xf86-video-vmware git xorg xorg-xinit nitrogen picom firefox
 git clone https://aur.archlinux.org/yay-git.git
 
