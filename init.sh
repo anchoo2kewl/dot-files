@@ -18,7 +18,7 @@ case $OS in
 	       doas -- pacman -S --noconfirm mc
 	       doas -- pacman -S --noconfirm neofetch
 	       doas -- curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | doas tar xzC /usr/bin ;;
-           'Ubuntu' )
+           'Ubuntu'|'Pop!_OS' )
                echo "Ubuntu detected ..." 
                sudo apt-get install -y zsh
                sudo apt-get install -y mosh
@@ -29,7 +29,7 @@ case $OS in
                sudo apt install -y zoxide
                sudo apt-get install -y mc
 	       sudo apt-get install -y neofetch
-               sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | sudo ar xzC /usr/bin ;;
+               sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | sudo tar xzC /usr/bin ;;
             'CentOS Linux')
 	       echo "Centos detected ..."
 	       sudo yum install -y zsh
