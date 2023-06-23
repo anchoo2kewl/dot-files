@@ -3,6 +3,7 @@ export EDITOR="/usr/bin/vim"
 #Aliases
 alias ec="$EDITOR $HOME/.zshrc"
 alias sc=". $HOME/.zshrc"
+alias sudo='nocorrect sudo'
 
 alias conflict="git diff --name-only --diff-filter=U"
 alias showlog="git log -n 1 --pretty=format:%s"
