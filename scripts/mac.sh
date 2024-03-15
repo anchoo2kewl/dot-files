@@ -5,9 +5,10 @@ re='^[0-9]+$'
 which -s brew
 if [[ $? != 0 ]] ; then
     # Install Homebrew
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     if [[ $isM1 =~ $re ]] ; then 
-        export PATH=$PATH:/opt/homebrew/bin;
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
 else
     brew update
@@ -20,9 +21,6 @@ brew install --cask iterm2
 brew install --cask slack
 
 if ! [[ $isM1 =~ $re ]] ; then 
-        # Install Teams
-        brew install --cask microsoft-teams
-
         # Install VMWare Fusion
         brew install --cask vmware-fusion
 
@@ -42,7 +40,6 @@ brew install docker-machine-completion
 # Install Zsh completions
 brew install zsh-completions
 
-
 # Install Outlook
 brew install --cask microsoft-outlook
 
@@ -52,15 +49,11 @@ brew install --cask sublime-text
 # Install VSCode
 brew install --cask visual-studio-code
 
-
 # Install Bitwarden
 brew install --cask bitwarden
 
 # Install Zoom
 brew install --cask zoom
-
-# Install Webex
-brew install --cask webex
 
 # Install OBS
 brew install --cask obs
@@ -79,3 +72,42 @@ brew install --cask notion
 
 # Install Wget
 brew install wget
+
+# Install Obsidian
+brew install --cask obsidian
+
+# Install Github CLI
+brew install gh
+
+# Install DuckDuckGo
+brew install --cask duckduckgo
+
+# Install arc
+brew install --cask arc
+
+# Install Tailscale
+brew install tailscale
+
+# Install Mailsy
+brew install mailsy
+
+# Install Taskell
+brew install taskell
+
+# Wifi Password
+brew install wi-fi password
+
+# Mas
+brew install mas
+
+# MPV
+brew install mpv
+
+# 2048
+brew install c2048
+
+# htop
+brew install htop
+
+# Imagemagick
+brew install imagemagick

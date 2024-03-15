@@ -72,6 +72,8 @@ esac
 
 chsh -s /usr/bin/zsh
 
+sudo mkdir -p /usr/local/bin
+
 curl -sS https://starship.rs/install.sh | sh
 
 REALPATH=`realpath $0`
