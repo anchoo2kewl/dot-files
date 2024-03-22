@@ -14,19 +14,9 @@ alias ga="git add"
 alias gr="git rm"
 alias gc="git commit -m "
 
-alias ls='exa'
-alias ll='exa -l'
-alias tree='exa --tree'
-# ls, the common ones I use a lot shortened for rapid fire usage
-alias l='exa -lFh'     #size,show type,human readable
-alias la='exa -lAFh'   #long list,show almost all,show type,human readable
-alias lr='exa -tRFh'   #sorted by date,recursive,show type,human readable
-alias lt='exa -ltFh'   #long list,sorted by date,show type,human readable
-alias ll='exa -l'      #long list
-alias ldot='exa -ld .*'
-alias lS='exa -1FSsh'
-alias lart='exa -1Fcart'
-alias lrt='exa -1Fcrt'
+alias ls='ls -F'
+alias ll='ls -lh'
+alias la='ls -al'
 
 alias grep='grep --color'
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '

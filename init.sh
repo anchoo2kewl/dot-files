@@ -10,7 +10,6 @@ case $OS in
 	       echo "Arch detected ..."
 	       doas -- pacman -S --noconfirm zsh
                doas -- pacman -S --noconfirm mosh
-	       doas -- pacman -S --noconfirm exa
 	       doas -- pacman -S --noconfirm bat
 	       doas -- pacman -S --noconfirm fzf
 	       doas -- pacman -S --noconfirm ripgrep
@@ -22,7 +21,6 @@ case $OS in
                echo "Ubuntu detected ..." 
                sudo apt-get install -y zsh
                sudo apt-get install -y mosh
-               sudo apt-get install -y exa
                sudo apt install -y bat
                sudo apt install -y fzf
                sudo apt install -y ripgrep
@@ -38,9 +36,6 @@ case $OS in
 	       sudo yum -y install mosh
 	       sudo yum install -y unzip wget
 	       sudo dnf install -y neofetch
-	       wget -O https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip /tmp
-	       unzip /tmp/exa-linux-x86_64-0.8.0.zip
-	       sudo mv /tmp/exa-linux-x86_64 /usr/local/bin/exa
 	       wget -O -c http://repo.openfusion.net/centos7-x86_64/bat-0.7.0-1.of.el7.x86_64.rpm /tmp
 	       sudo yum install -y tmp/bat-0.7.0-1.of.el7.x86_64.rpm
                wget -O -c http://rpmfind.net/linux/fedora/linux/development/rawhide/Everything/x86_64/os/Packages/f/fzf-0.30.0-3.fc37.x86_64.rpm /tmp
