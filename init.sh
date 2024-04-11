@@ -56,6 +56,7 @@ case $OS in
         brew instal exa
         brew install bat
         brew install ripgrep
+	brew install fnm
         brew install fzf
         brew install zoxide
         brew install midnight-commander
