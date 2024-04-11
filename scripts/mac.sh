@@ -49,9 +49,6 @@ brew install --cask sublime-text
 # Install VSCode
 brew install --cask visual-studio-code
 
-# Install Bitwarden
-brew install --cask bitwarden
-
 # Install Zoom
 brew install --cask zoom
 
@@ -111,3 +108,9 @@ brew install htop
 
 # Imagemagick
 brew install imagemagick
+
+#Bitwarden
+mas install 1352778147
+
+#Tailscale
+mas install 1475387142
