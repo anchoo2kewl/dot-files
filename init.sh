@@ -20,7 +20,7 @@ case $OS in
 	       doas -- pacman -S --noconfirm neofetch
 	       doas -- curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | doas tar xzC /usr/bin ;;
            'Ubuntu'|'Pop!_OS' )
-               echo "Ubuntu detected ..." 
+               echo "Ubuntu detected ..."
                sudo apt-get install -y zsh
                sudo apt-get install -y mosh
                sudo apt install -y bat
@@ -61,7 +61,7 @@ case $OS in
             cd ~
             sudo rm -rf /tmp/allacritty
        esac ;;
-  'Darwin')  
+  'Darwin')
         echo "MacOS detected ..."
         brew install neofetch
         brew install mosh
@@ -78,7 +78,7 @@ case $OS in
         brew install zoxide
         brew install midnight-commander
         brew install lf ;;
-  *) echo "OS not detected ... " 
+  *) echo "OS not detected ... "
      exit 1  ;;
 
 esac
@@ -110,3 +110,4 @@ cd $HOME/libs
 
 ln -sf $DIR/.zshrc $HOME/.zshrc
 ln -sf $DIR/.aliasrc $HOME/.config/.aliasrc
+ln -sf $DIR/.vimrc $HOME/.vimrc
