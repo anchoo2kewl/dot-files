@@ -75,6 +75,7 @@ case $OS in
         brew install --cask alacritty
         brew tap homebrew/cask-fonts
         brew install font-ubuntu-mono-nerd-font
+        brew install neovim
         brew install zoxide
         brew install midnight-commander
         brew install lf ;;
@@ -101,6 +102,9 @@ git clone https://github.com/alacritty/alacritty-theme "$XDG_CONFIG_HOME"/alacri
 ln -sf $DIR/alacrity.toml $XDG_CONFIG_HOME/alacritty/alacritty.toml
 
 mkdir -p $HOME/libs
+mkdir $XDG_CONFIG_HOME/nvim/
+
+ln -sf $DIR/init.vim $XDG_CONFIG_HOME/nvim/init.vim
 
 cd $HOME/libs
 
@@ -111,3 +115,4 @@ cd $HOME/libs
 ln -sf $DIR/.zshrc $HOME/.zshrc
 ln -sf $DIR/.aliasrc $HOME/.config/.aliasrc
 ln -sf $DIR/.vimrc $HOME/.vimrc
+
