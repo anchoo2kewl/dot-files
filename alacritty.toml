@@ -17,7 +17,7 @@ background = "#181818"
 
 [window]
 decorations = "None"
-startup_mode = "Windowed"
+startup_mode = "Maximized"
 opacity = 0.95
 
 [scrolling]
