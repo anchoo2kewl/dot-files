@@ -3,14 +3,35 @@
 import = ["$XDG_CONFIG_HOME/alacritty/themes/themes/gruvbox_dark.toml"]
 
 [font]
-size = 24
+size = 18
 
 [font.normal]
 family = "UbuntuMono Nerd Font"
 
-[window]
-decorations = "none"
-
 [window.padding]
 x = 7
 y = 0
+
+[colors.primary]
+background = "#181818"
+
+[window]
+decorations = "None"
+startup_mode = "Windowed"
+opacity = 0.95
+
+[scrolling]
+history = 5000
+
+[cursor]
+ style = "Beam"
+
+[env]
+TERM = "alacritty"
+
+[bell]
+color = "#003300"
+duration = 0
+
+[selection]
+save_to_clipboard = true
