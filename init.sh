@@ -1,3 +1,5 @@
+export XDG_CONFIG_HOME="$HOME"/.config
+
 # Detect the platform (similar to $OSTYPE)
 OS="`uname`"
 case $OS in
@@ -38,14 +40,26 @@ case $OS in
 	       sudo dnf install -y neofetch
 	       wget -O -c http://repo.openfusion.net/centos7-x86_64/bat-0.7.0-1.of.el7.x86_64.rpm /tmp
 	       sudo yum install -y tmp/bat-0.7.0-1.of.el7.x86_64.rpm
-               wget -O -c http://rpmfind.net/linux/fedora/linux/development/rawhide/Everything/x86_64/os/Packages/f/fzf-0.30.0-3.fc37.x86_64.rpm /tmp
-               sudo yum install -y /tmp/fzf-0.30.0-3.fc37.x86_64.rpm
-               wget -O -c https://github.com/jc21-rpm/ripgrep/releases/download/v13.0.0/ripgrep-13.0.0-1.el8.x86_64.rpm /tmp
+            wget -O -c http://rpmfind.net/linux/fedora/linux/development/rawhide/Everything/x86_64/os/Packages/f/fzf-0.30.0-3.fc37.x86_64.rpm /tmp
+            sudo yum install -y /tmp/fzf-0.30.0-3.fc37.x86_64.rpm
+            wget -O -c https://github.com/jc21-rpm/ripgrep/releases/download/v13.0.0/ripgrep-13.0.0-1.el8.x86_64.rpm /tmp
 	       sudo yum install -y /tmp/ripgrep-13.0.0-1.el8.x86_64.rpm
-               sudo dnf copr enable -y atim/zoxide
-               sudo dnf install -y zoxide
+            sudo dnf copr enable -y atim/zoxide
+            sudo dnf install -y zoxide
 	       sudo dnf install -y mc
 	       sudo yum install -y util-linux-user ;;
+            # Install Alacritty
+            git clone https://github.com/alacritty/alacritty.git /tmp/allacritty
+            cd /tmp/allacritty
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+            sudo apt install -y cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
+            ~/.cargo/bin/cargo build --release
+            sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
+            sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+            sudo desktop-file-install extra/linux/Alacritty.desktop
+            sudo update-desktop-database
+            cd ~
+            sudo rm -rf /tmp/allacritty
        esac ;;
   'Darwin')  
         echo "MacOS detected ..."
@@ -56,8 +70,11 @@ case $OS in
         brew instal exa
         brew install bat
         brew install ripgrep
-	brew install fnm
+	   brew install fnm
         brew install fzf
+        brew install --cask alacritty
+        brew tap homebrew/cask-fonts
+        brew install font-ubuntu-mono-nerd-font
         brew install zoxide
         brew install midnight-commander
         brew install lf ;;
@@ -79,7 +96,9 @@ touch $DIR/.custom.zsh
 [ -f '.custom.zsh' ] && ln -sf $DIR/.custom.zsh $HOME/.custom.zsh
 
 ln -sf $DIR/.tmux.conf $HOME/.tmux.conf
+git clone https://github.com/alacritty/alacritty-theme "$XDG_CONFIG_HOME"/alacritty/themes
 
+ln -sf $DIR/alacrity.toml $XDG_CONFIG_HOME/alacritty/alacritty.toml
 
 mkdir -p $HOME/libs
 

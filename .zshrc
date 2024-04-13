@@ -1,3 +1,5 @@
+export XDG_CONFIG_HOME="$HOME"/.config
+
 isM1=`sysctl -n sysctl.proc_translated`
 re='^[0-9]+$'
 
