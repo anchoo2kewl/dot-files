@@ -10,7 +10,7 @@ fi
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
-neofetch
+fastfetch
 
 #History setup
 HISTFILE=~/.zsh_history
