@@ -21,9 +21,6 @@ brew install --cask iterm2
 brew install --cask slack
 
 if ! [[ $isM1 =~ $re ]] ; then 
-        # Install VMWare Fusion
-        brew install --cask vmware-fusion
-
         # Install Docker Desktop
         brew install homebrew/cask/docker        
 fi
@@ -39,9 +36,6 @@ brew install docker-machine-completion
 
 # Install Zsh completions
 brew install zsh-completions
-
-# Install Outlook
-brew install --cask microsoft-outlook
 
 # Install Sublime
 brew install --cask sublime-text
@@ -59,10 +53,13 @@ brew install --cask obs
 brew install telnet
 
 # Install RDP
-brew install --cask microsoft-remote-desktop
+brew install --cask windows-app
 
 # Install insomnia
 brew install --cask insomnia
+
+# Install Postman
+brew install --cask postman
 
 # Install Notion
 brew install --cask notion
@@ -78,12 +75,6 @@ brew install gh
 
 # Install DuckDuckGo
 brew install --cask duckduckgo
-
-# Install arc
-brew install --cask arc
-
-# Install Tailscale
-brew install tailscale
 
 # Install Mailsy
 brew install mailsy
