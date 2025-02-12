@@ -13,6 +13,7 @@ alias gits="git status"
 alias ga="git add"
 alias gr="git rm"
 alias gc="git commit -m "
+alias glp='git log --pretty=format:"%C(yellow)%h%Creset - %C(green)%an%Creset, %ar : %s"'
 
 alias ls='ls -F'
 alias ll='ls -lh'

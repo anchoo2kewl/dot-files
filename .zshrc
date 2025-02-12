@@ -131,3 +131,6 @@ unset __conda_setup
 # fnm
 export PATH="/home/anshuman/.local/share/fnm:$PATH"
 eval "`fnm env`"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/anshuman/.lmstudio/bin"
