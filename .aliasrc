@@ -14,6 +14,7 @@ alias ga="git add"
 alias gr="git rm"
 alias gc="git commit -m "
 alias glp='git log --pretty=format:"%C(yellow)%h%Creset - %C(green)%an%Creset, %ar : %s"'
+alias gdlt='git branch | grep -v "develop" | grep -v "master" | grep -v "main" | xargs git branch -D'
 
 alias ls='ls -F'
 alias ll='ls -lh'
