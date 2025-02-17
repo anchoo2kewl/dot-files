@@ -118,19 +118,22 @@ __conda_setup="$('/home/anshuman/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /de
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/anshuman/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/anshuman/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/anshuman/miniconda3/bin:$PATH"
+        export PATH="$HOME/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
 
-# fnm
-export PATH="/home/anshuman/.local/share/fnm:$PATH"
-eval "`fnm env`"
-
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/anshuman/.lmstudio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
+
+# fnm
+FNM_PATH="$HOME/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$HOME/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
