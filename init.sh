@@ -14,8 +14,9 @@ case $OS in
         doas -- curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | tar xzC /usr/bin ;;
       'Ubuntu'|'Pop!_OS' )
         echo "Ubuntu detected ..."
-        sudo apt-get install -y zsh mosh bat fzf ripgrep zoxide mc fastfetch
-        sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | sudo tar xzC /usr/bin ;;
+        wget https://github.com/fastfetch-cli/fastfetch/releases/download/2.39.1/fastfetch-linux-aarch64.deb -P /tmp
+        sudo dpkg -i /tmp/fastfetch-linux-aarch64.deb
+        sudo apt-get install -y zsh mosh bat fzf ripgrep zoxide mc        sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | sudo tar xzC /usr/bin ;;
       'CentOS Linux')
         echo "CentOS detected ..."
         sudo yum install -y zsh mosh unzip wget util-linux-user
@@ -34,20 +35,7 @@ case $OS in
         exit 1 ;;
     esac
 
-    # Install Alacritty
-    git clone https://github.com/alacritty/alacritty.git /tmp/alacritty
-    cd /tmp/alacritty
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    source "$HOME"/.cargo/env
-    sudo apt install -y cmake pkg-config libfreetype6-dev libfontconfig1-dev \
-      libxcb-xfixes0-dev libxkbcommon-dev python3
-    cargo build --release
-    sudo cp target/release/alacritty /usr/local/bin
-    sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
-    sudo desktop-file-install extra/linux/Alacritty.desktop
-    sudo update-desktop-database
-    cd ~
-    sudo rm -rf /tmp/alacritty ;;
+    echo "Done NIX" ;;
   'Darwin')
     echo "macOS detected ..."
     brew install fastfetch mosh tmux coreutils bat ripgrep fnm fzf zoxide \
