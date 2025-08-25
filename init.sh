@@ -19,6 +19,10 @@ esac
 case $OS in
   'Linux')
     echo "Linux detected. Probing OS further ..."
+    echo "WARNING: This script requires sudo access without password prompt."
+    echo "Please ensure your user is in sudoers with NOPASSWD or run: sudo visudo"
+    echo "Add line: $USER ALL=(ALL) NOPASSWD:ALL"
+    echo ""
     LINUX_OS=$(awk -F= '/^NAME/{print $2}' /etc/os-release | tr -d '"')
     echo "$LINUX_OS"
     case $LINUX_OS in
