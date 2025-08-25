@@ -29,8 +29,8 @@ case $OS in
       'Ubuntu'|'Pop!_OS' )
         echo "Ubuntu detected ..."
         wget https://github.com/fastfetch-cli/fastfetch/releases/download/2.39.1/fastfetch-linux-${FASTFETCH_ARCH}.deb -P /tmp
-        sudo dpkg -i /tmp/fastfetch-linux-${FASTFETCH_ARCH}.deb
-        sudo apt-get install -y zsh mosh bat fzf ripgrep zoxide mc
+        sudo DEBIAN_FRONTEND=noninteractive dpkg -i /tmp/fastfetch-linux-${FASTFETCH_ARCH}.deb
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y zsh mosh bat fzf ripgrep zoxide mc
         sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-${LF_ARCH}.tar.gz | sudo tar xzC /usr/bin ;;
       'CentOS Linux')
         echo "CentOS detected ..."
@@ -61,11 +61,12 @@ case $OS in
     exit 1 ;;
 esac
 
-chsh -s /usr/bin/zsh
+# Skip chsh since it requires interactive input - user can change shell manually later
+# chsh -s /usr/bin/zsh
 
 sudo mkdir -p /usr/local/bin
 
-curl -sS https://starship.rs/install.sh | sh
+curl -sS https://starship.rs/install.sh | sh -s -- --yes
 
 REALPATH=$(realpath "$0")
 DIR=$(dirname "$REALPATH")
