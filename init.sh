@@ -70,7 +70,12 @@ esac
 
 sudo mkdir -p /usr/local/bin
 
-curl -sS https://starship.rs/install.sh | sh -s -- --yes
+# Install starship manually to avoid interactive prompts
+STARSHIP_URL="https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-musl.tar.gz"
+if [ "$LF_ARCH" = "arm64" ]; then
+    STARSHIP_URL="https://github.com/starship/starship/releases/latest/download/starship-aarch64-unknown-linux-musl.tar.gz"
+fi
+curl -L "$STARSHIP_URL" | sudo tar xzC /usr/local/bin
 
 REALPATH=$(realpath "$0")
 DIR=$(dirname "$REALPATH")
