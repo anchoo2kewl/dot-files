@@ -164,8 +164,9 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+# jenv removed - not installed on this system
+# export PATH="$HOME/.jenv/bin:$PATH"
+# eval "$(jenv init -)"
 
 # Added by Windsurf - Next
 export PATH="/Users/anshumanbiswas/.codeium/windsurf/bin:$PATH"
