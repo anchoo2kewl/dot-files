@@ -96,12 +96,12 @@ case $OS in
     LINUX_OS=`awk -F= '/^NAME/{print $2}' /etc/os-release | cut -d '"' -f2`
     case $LINUX_OS in
       'Arch Linux'|'Arch Linux ARM')
-         alias cat='bat' ;;
+         alias bcat='bat' ;;
       *)
-         alias cat='batcat' ;;
+         alias bcat='batcat' ;;
   esac ;;
   'Darwin')
-        alias cat='bat' ;;
+        alias bcat='bat' ;;
   *) ;;
 esac
 
