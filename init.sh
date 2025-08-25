@@ -2,6 +2,20 @@ export XDG_CONFIG_HOME="$HOME"/.config
 
 # Detect the platform (similar to $OSTYPE)
 OS="$(uname)"
+ARCH="$(uname -m)"
+
+# Map architecture names
+case $ARCH in
+  'x86_64')
+    LF_ARCH="amd64"
+    FASTFETCH_ARCH="amd64" ;;
+  'aarch64'|'arm64')
+    LF_ARCH="arm64"
+    FASTFETCH_ARCH="aarch64" ;;
+  *)
+    echo "Unsupported architecture: $ARCH"
+    exit 1 ;;
+esac
 case $OS in
   'Linux')
     echo "Linux detected. Probing OS further ..."
@@ -11,12 +25,13 @@ case $OS in
       'Arch Linux'|'Arch Linux ARM' )
         echo "Arch detected ..."
         doas -- pacman -S --noconfirm zsh mosh bat fzf ripgrep zoxide mc fastfetch
-        doas -- curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | tar xzC /usr/bin ;;
+        doas -- curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-${LF_ARCH}.tar.gz | tar xzC /usr/bin ;;
       'Ubuntu'|'Pop!_OS' )
         echo "Ubuntu detected ..."
-        wget https://github.com/fastfetch-cli/fastfetch/releases/download/2.39.1/fastfetch-linux-aarch64.deb -P /tmp
-        sudo dpkg -i /tmp/fastfetch-linux-aarch64.deb
-        sudo apt-get install -y zsh mosh bat fzf ripgrep zoxide mc        sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-amd64.tar.gz | sudo tar xzC /usr/bin ;;
+        wget https://github.com/fastfetch-cli/fastfetch/releases/download/2.39.1/fastfetch-linux-${FASTFETCH_ARCH}.deb -P /tmp
+        sudo dpkg -i /tmp/fastfetch-linux-${FASTFETCH_ARCH}.deb
+        sudo apt-get install -y zsh mosh bat fzf ripgrep zoxide mc
+        sudo curl -L https://github.com/gokcehan/lf/releases/download/r27/lf-linux-${LF_ARCH}.tar.gz | sudo tar xzC /usr/bin ;;
       'CentOS Linux')
         echo "CentOS detected ..."
         sudo yum install -y zsh mosh unzip wget util-linux-user
