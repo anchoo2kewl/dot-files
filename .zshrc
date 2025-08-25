@@ -3,6 +3,32 @@ export XDG_CONFIG_HOME="$HOME"/.config
 isM1=`sysctl -n sysctl.proc_translated`
 re='^[0-9]+$'
 
+# Set where your .zshrc lives (explicitly)
+ZSHRC_DIR="$HOME/projects/dot-files"
+
+# Get parent directory
+PARENT_DIR="$(dirname "$ZSHRC_DIR")"
+
+# Print them for debugging
+echo "ZSHRC_DIR (script_dir): $ZSHRC_DIR"
+echo "Parent directory: $PARENT_DIR"
+
+# Safely add $ZSHRC_DIR/bin to PATH if not already present
+case ":$PATH:" in
+    *":$ZSHRC_DIR/bin:"*) ;;
+    *) export PATH="$PATH:$ZSHRC_DIR/bin" ;;
+esac
+
+# Safely add $PARENT_DIR/bin to PATH if not already present
+case ":$PATH:" in
+    *":$PARENT_DIR/bin:"*) ;;
+    *) export PATH="$PATH:$PARENT_DIR/bin" ;;
+esac
+
+export PATH=$PATH:$script_dir/bin
+
+# Add bin one level higher
+
 if [[ $isM1 =~ $re ]] ; then 
     export PATH=$PATH:/opt/homebrew/bin;
 fi
@@ -80,7 +106,7 @@ setopt hist_reduce_blanks # remove superfluous blanks from history items
 setopt inc_append_history # save history entries as soon as they are entered
 setopt share_history # share history between different instances of the shell
 setopt auto_cd # cd by typing directory name if it's not a command
-setopt correct_all # autocorrect commands
+setopt correct # autocorrect commands
 setopt auto_list # automatically list choices on ambiguous completion
 setopt auto_menu # automatically use menu completion
 setopt always_to_end # move cursor to end if word had one match
@@ -137,3 +163,21 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="$HOME/.local/share/fnm:$PATH"
   eval "`fnm env`"
 fi
+
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+# Added by Windsurf - Next
+export PATH="/Users/anshumanbiswas/.codeium/windsurf/bin:$PATH"
+
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+export PATH="$HOME/go/bin:$PATH"
+
+# Created by `pipx` on 2025-07-11 12:43:38
+export PATH="$PATH:/Users/anshumanbiswas/.local/bin"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+# opencode
+export PATH=/Users/anshumanbiswas/.opencode/bin:$PATH

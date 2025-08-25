@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Check if branch name is provided
+if [ -z "$1" ]; then
+  echo "Usage: ./gpull <branch-name>"
+  exit 1
+fi
+
+TARGET_BRANCH="$1"
+
+# Fetch latest from origin
+echo "Fetching from origin..."
+git fetch origin
+
+# Switch to master branch
+echo "Checking out master branch..."
+git checkout master
+
+# Pull latest changes on master
+echo "Pulling latest changes on master..."
+git pull origin master
+
+# Switch back to target branch
+echo "Checking out branch: $TARGET_BRANCH"
+git checkout "$TARGET_BRANCH"
+
+echo "Done."

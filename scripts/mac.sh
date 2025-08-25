@@ -34,6 +34,9 @@ brew install docker-completion
 brew install docker-compose-completion
 brew install docker-machine-completion
 
+# Install Google Chrome
+brew install --cask google-chrome
+
 # Install Zsh completions
 brew install zsh-completions
 
@@ -54,6 +57,9 @@ brew install telnet
 
 # Install RDP
 brew install --cask windows-app
+
+# Install Ghostty
+brew install --cask ghostty
 
 # Install insomnia
 brew install --cask insomnia
