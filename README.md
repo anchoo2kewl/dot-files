@@ -45,6 +45,16 @@ exit
 
 Repeat with `personal` for your personal accounts.
 
+### Inside Claude Code
+
+Once you launch `claude`, the shell prompt is hidden — so the same colored badge is rendered in Claude's **status line** at the bottom of the UI via `bin/claude-statusline`:
+
+```
+ work   Opus 4.7   ~/projects/foo   42%
+```
+
+The script reads the same `TAI_WORK` / `TAI_PERSONAL` env vars Claude inherits from the parent shell. Wired up via `statusLine` in `~/.claude/settings.json` (default) and `~/.profiles/<name>/.claude/settings.json` (work / personal).
+
 ### `whoami-ai`
 
 Shows the active profile and which account is logged in to each CLI in the **current** shell:
@@ -68,3 +78,4 @@ gemini     you@personal.com           /Users/you/.gemini
 - `.zshrc` defines `_ai_profile_enter`, `work`, and `personal`.
 - `starship.toml` adds `${env_var.TAI_WORK}` and `${env_var.TAI_PERSONAL}` to the format string and two `[env_var.*]` modules that render only when the matching variable is set.
 - `bin/whoami-ai` parses each CLI's config (`.claude.json`, Codex `auth.json` id_token JWT, Gemini `google_accounts.json`).
+- `bin/claude-statusline` is invoked by Claude Code as its `statusLine` command and reads `TAI_WORK` / `TAI_PERSONAL` from the inherited env.

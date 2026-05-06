@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Claude Code statusLine: colored profile badge + model + cwd + context %.
+# Profile is read from the TAI_WORK / TAI_PERSONAL env vars set by the
+# `work` / `personal` zsh sub-shells. Default shell renders a dim "default".
+set -u
+
+input=$(cat)
+
+read_json() {
+    /usr/bin/python3 -c '
+import json, sys
+d = json.loads(sys.stdin.read() or "{}")
+for key in sys.argv[1:]:
+    cur = d
+    for part in key.split("."):
+        if isinstance(cur, dict):
+            cur = cur.get(part)
+        else:
+            cur = None
+            break
+    print(cur if cur is not None else "")
+' "$@" <<<"$input"
+}
+
+mapfile -t fields < <(read_json model.display_name workspace.current_dir context_window.used_percentage)
+model="${fields[0]}"
+cwd="${fields[1]}"
+pct="${fields[2]%%.*}"
+
+profile="default"
+badge="\033[2m default \033[0m"
+if [[ -n "${TAI_WORK:-}" ]]; then
+    profile="work"
+    badge="\033[1;41;37m work \033[0m"
+elif [[ -n "${TAI_PERSONAL:-}" ]]; then
+    profile="personal"
+    badge="\033[1;44;37m personal \033[0m"
+fi
+
+# Tildify cwd
+[[ -n "$cwd" && "$cwd" == "$HOME"* ]] && cwd="~${cwd#$HOME}"
+
+dim="\033[2m"
+cyan="\033[36m"
+yellow="\033[33m"
+reset="\033[0m"
+
+out="$badge"
+[[ -n "$model" ]] && out+=" ${cyan}${model}${reset}"
+[[ -n "$cwd" ]] && out+=" ${dim}${cwd}${reset}"
+[[ -n "$pct" && "$pct" =~ ^[0-9]+$ ]] && out+=" ${yellow}${pct}%${reset}"
+
+printf '%b' "$out"
