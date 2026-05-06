@@ -33,6 +33,20 @@ Each profile is a child `zsh` that pins these env vars at the per-profile root s
 
 `exit` returns to the default shell. Profiles do not nest — entering one always unsets the other badge variable.
 
+### What's shared vs. isolated (Claude)
+
+Entering a profile auto-symlinks these items from `~/.claude/` into `~/.profiles/<name>/.claude/`, so plugins, skills, custom slash commands, MCP servers, hooks, and other settings stay in sync across all profiles:
+
+- `plugins/`, `skills/`, `commands/`, `agents/` (if present) — directory symlinks
+- `settings.json` — file symlink (model, hooks, `enabledPlugins`, `mcpServers`, `statusLine`, etc.)
+
+Per-profile (kept isolated, never symlinked):
+
+- `.claude.json` — auth state (`oauthAccount.emailAddress` etc.) — this is what makes the profile a separate login
+- `projects/`, `sessions/`, `history.jsonl`, `backups/`, `cache/` — chat / session history
+
+The symlinks are created idempotently every time you `work` or `personal`, so installing a new plugin or MCP server in any profile (or the default shell) immediately propagates to all of them. Codex and Gemini are not symlinked — their state stays fully per-profile.
+
 ### First-time setup per profile
 
 ```bash
@@ -53,7 +67,7 @@ Once you launch `claude`, the shell prompt is hidden — so the same colored bad
  work   Opus 4.7   ~/projects/foo   42%
 ```
 
-The script reads the same `TAI_WORK` / `TAI_PERSONAL` env vars Claude inherits from the parent shell. Wired up via `statusLine` in `~/.claude/settings.json` (default) and `~/.profiles/<name>/.claude/settings.json` (work / personal).
+The script reads the same `TAI_WORK` / `TAI_PERSONAL` env vars Claude inherits from the parent shell. Wired up via `statusLine` in `~/.claude/settings.json`, which each profile picks up automatically through the shared `settings.json` symlink described above.
 
 ### `whoami-ai`
 

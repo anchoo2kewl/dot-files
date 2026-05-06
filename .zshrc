@@ -131,16 +131,26 @@ gcln() {
     git clean -fd
 }
 
-# Profile-scoped sub-shells: isolated AI-CLI state + colored Starship badge.
-# Each profile pins ~/.profiles/<name>/ as the root for Claude / Codex / Gemini configs.
+# Profile-scoped sub-shells: isolated AI-CLI login state + colored Starship badge.
+# Per-profile state (auth, .claude.json, projects, sessions) lives under
+# ~/.profiles/<name>/, but plugins / skills / commands / settings.json are
+# symlinked to ~/.claude so they stay in sync across all profiles.
 # Type `work` or `personal` to enter; `exit` to return to the default shell.
 _ai_profile_enter() {
     local name="$1" badge="$2"
     local root="$HOME/.profiles/$name"
-    mkdir -p "$root/.claude" "$root/.codex" "$root/.gemini"
+    local pclaude="$root/.claude"
+    mkdir -p "$pclaude" "$root/.codex" "$root/.gemini"
+    local item
+    for item in plugins skills commands agents settings.json; do
+        if [[ -e "$HOME/.claude/$item" ]]; then
+            [[ -L "$pclaude/$item" ]] || rm -rf "$pclaude/$item"
+            ln -sfn "$HOME/.claude/$item" "$pclaude/$item"
+        fi
+    done
     env -u TAI_WORK -u TAI_PERSONAL \
         "$badge=$name" \
-        CLAUDE_CONFIG_DIR="$root/.claude" \
+        CLAUDE_CONFIG_DIR="$pclaude" \
         CODEX_HOME="$root/.codex" \
         GEMINI_CLI_HOME="$root" \
         zsh
