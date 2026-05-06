@@ -131,6 +131,23 @@ gcln() {
     git clean -fd
 }
 
+# Profile-scoped sub-shells: isolated AI-CLI state + colored Starship badge.
+# Each profile pins ~/.profiles/<name>/ as the root for Claude / Codex / Gemini configs.
+# Type `work` or `personal` to enter; `exit` to return to the default shell.
+_ai_profile_enter() {
+    local name="$1" badge="$2"
+    local root="$HOME/.profiles/$name"
+    mkdir -p "$root/.claude" "$root/.codex" "$root/.gemini"
+    env -u TAI_WORK -u TAI_PERSONAL \
+        "$badge=$name" \
+        CLAUDE_CONFIG_DIR="$root/.claude" \
+        CODEX_HOME="$root/.codex" \
+        GEMINI_CLI_HOME="$root" \
+        zsh
+}
+work()     { _ai_profile_enter work TAI_WORK; }
+personal() { _ai_profile_enter personal TAI_PERSONAL; }
+
 # Docker Compose pull and clean old images
 dcp() { 
     docker-compose pull
@@ -182,3 +199,16 @@ export PATH="$PATH:/Users/anshumanbiswas/.local/bin"
 
 # opencode
 export PATH=/Users/anshumanbiswas/.opencode/bin:$PATH
+
+# Added by Antigravity
+export PATH="/Users/anshumanbiswas/.antigravity/antigravity/bin:$PATH"
+
+# Entire CLI shell completion
+autoload -Uz compinit && compinit && source <(entire completion zsh)
+
+# biswas.me server script completion
+command -v server >/dev/null 2>&1 && eval "$(server --completions)"
+
+# AgentShield
+export PATH="$HOME/bin:$PATH"
+export OLLAMA_USE_MLX=1

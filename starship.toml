@@ -1,7 +1,7 @@
 # Don't print a new line at the start of the prompt
 add_newline = false
 
-format = """$username$hostname$directory$git_branch$git_status$kubernetes$time$character"""
+format = """${env_var.TAI_WORK}${env_var.TAI_PERSONAL}$username$hostname$directory$git_branch$git_status$kubernetes$time$character"""
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
@@ -135,3 +135,11 @@ style = "bold yellow"
 [[battery.display]]
 threshold = 100
 style = "bold green"
+
+[env_var.TAI_WORK]
+variable = "TAI_WORK"
+format = "[ work ](bold white bg:red) "
+
+[env_var.TAI_PERSONAL]
+variable = "TAI_PERSONAL"
+format = "[ personal ](bold white bg:blue) "

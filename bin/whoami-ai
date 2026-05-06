@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# Show logged-in account for Claude / Codex / Gemini in the current shell profile.
+# Honours CLAUDE_CONFIG_DIR, CODEX_HOME, GEMINI_CLI_HOME so the answer matches
+# whichever profile sub-shell (work / personal / default) you're in.
+set -u
+
+profile="default"
+profile_color="\033[1;37m"
+if [[ -n "${TAI_WORK:-}" ]]; then
+    profile="work"
+    profile_color="\033[1;41;37m" # white on red
+elif [[ -n "${TAI_PERSONAL:-}" ]]; then
+    profile="personal"
+    profile_color="\033[1;44;37m" # white on blue
+fi
+
+reset="\033[0m"
+dim="\033[2m"
+green="\033[32m"
+yellow="\033[33m"
+
+if [[ -n "${CLAUDE_CONFIG_DIR:-}" ]]; then
+    claude_dir="$CLAUDE_CONFIG_DIR"
+    claude_json="$CLAUDE_CONFIG_DIR/.claude.json"
+else
+    claude_dir="$HOME/.claude"
+    claude_json="$HOME/.claude.json"
+fi
+
+codex_dir="${CODEX_HOME:-$HOME/.codex}"
+codex_auth="$codex_dir/auth.json"
+
+gemini_root="${GEMINI_CLI_HOME:-$HOME}"
+gemini_accounts="$gemini_root/.gemini/google_accounts.json"
+
+# --- Claude ---------------------------------------------------------------
+claude_email=""
+if [[ -f "$claude_json" ]]; then
+    claude_email=$(/usr/bin/python3 -c '
+import json, sys
+try:
+    with open(sys.argv[1]) as f:
+        d = json.load(f)
+    print(d.get("oauthAccount", {}).get("emailAddress", ""))
+except Exception:
+    pass
+' "$claude_json" 2>/dev/null)
+fi
+
+# --- Codex ----------------------------------------------------------------
+codex_email=""
+codex_mode=""
+if [[ -f "$codex_auth" ]]; then
+    codex_info=$(/usr/bin/python3 -c '
+import json, sys, base64
+try:
+    with open(sys.argv[1]) as f:
+        d = json.load(f)
+    mode = d.get("auth_mode", "")
+    tok = (d.get("tokens") or {}).get("id_token") or ""
+    email = ""
+    if tok.count(".") >= 2:
+        payload = tok.split(".")[1]
+        payload += "=" * (-len(payload) % 4)
+        claims = json.loads(base64.urlsafe_b64decode(payload))
+        email = claims.get("email", "")
+    if not email and d.get("OPENAI_API_KEY"):
+        email = "[api-key]"
+    print(f"{email}|{mode}")
+except Exception:
+    pass
+' "$codex_auth" 2>/dev/null)
+    codex_email="${codex_info%%|*}"
+    codex_mode="${codex_info#*|}"
+fi
+
+# --- Gemini ---------------------------------------------------------------
+gemini_email=""
+if [[ -f "$gemini_accounts" ]]; then
+    gemini_email=$(/usr/bin/python3 -c '
+import json, sys
+try:
+    with open(sys.argv[1]) as f:
+        d = json.load(f)
+    print(d.get("active", ""))
+except Exception:
+    pass
+' "$gemini_accounts" 2>/dev/null)
+fi
+
+fmt_email() {
+    local e="$1"
+    if [[ -n "$e" ]]; then
+        printf "%b%s%b" "$green" "$e" "$reset"
+    else
+        printf "%b%s%b" "$dim" "(not logged in)" "$reset"
+    fi
+}
+
+printf "%bprofile%b   %b %s %b   root: %s\n" "$dim" "$reset" "$profile_color" "$profile" "$reset" "${claude_dir%/.claude}"
+printf "%bclaude%b    " "$dim" "$reset"; fmt_email "$claude_email"; printf "  %b%s%b\n" "$dim" "$claude_dir" "$reset"
+printf "%bcodex%b     " "$dim" "$reset"; fmt_email "$codex_email"
+[[ -n "$codex_mode" ]] && printf " %b(%s)%b" "$dim" "$codex_mode" "$reset"
+printf "  %b%s%b\n" "$dim" "$codex_dir" "$reset"
+printf "%bgemini%b    " "$dim" "$reset"; fmt_email "$gemini_email"; printf "  %b%s%b\n" "$dim" "$gemini_root/.gemini" "$reset"
